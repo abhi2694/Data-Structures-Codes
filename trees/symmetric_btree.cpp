@@ -12,21 +12,17 @@
 class Solution {
 public:
     
-    TreeNode* helper(vector<int>& input, int si, int ei)
+    bool helper(TreeNode* lefty, TreeNode* righty)
     {
-        if(si>ei){
-        return NULL;
-    }
-    int mid=(si+ei)/2;
-    TreeNode* root=new TreeNode(input[mid]);
-    root->left=helper(input,si,mid-1);
-    root->right=helper(input,mid+1,ei);
-    return root;
+        if(lefty==NULL && righty==NULL)
+            return true;
+        if(lefty==NULL || righty==NULL)
+            return false;
+        
+        return (lefty->val == righty->val) && helper(lefty->left, righty->right) && helper(lefty->right,righty->left);
     }
     
-    TreeNode* sortedArrayToBST(vector<int>& nums) {
-        int n = nums.size();
-        return helper(nums,0,n-1);
-         
+    bool isSymmetric(TreeNode* root) {
+        return helper(root,root);
     }
 };

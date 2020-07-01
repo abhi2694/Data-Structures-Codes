@@ -12,21 +12,24 @@
 class Solution {
 public:
     
-    TreeNode* helper(vector<int>& input, int si, int ei)
+    int helper(TreeNode* root, bool &ans)
     {
-        if(si>ei){
-        return NULL;
-    }
-    int mid=(si+ei)/2;
-    TreeNode* root=new TreeNode(input[mid]);
-    root->left=helper(input,si,mid-1);
-    root->right=helper(input,mid+1,ei);
-    return root;
+        if(root==NULL)
+            return 0;
+        
+        int a = helper(root->left,ans);
+        int b = helper(root->right,ans);
+        
+        if(abs(a-b)>1)
+            ans = false;
+        
+        return max(a,b)+1;
     }
     
-    TreeNode* sortedArrayToBST(vector<int>& nums) {
-        int n = nums.size();
-        return helper(nums,0,n-1);
-         
+    bool isBalanced(TreeNode* root) {
+        bool ans = true;
+        int a = helper(root,ans);
+        
+        return ans;
     }
 };
