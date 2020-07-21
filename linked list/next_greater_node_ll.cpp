@@ -9,27 +9,18 @@
 class Solution {
 public:
     vector<int> nextLargerNodes(ListNode* head) {
-        vector<int> output;
-        
-        ListNode* temp = head;
-        while(temp!=NULL)
-        {
-            int a = temp->val;
-            ListNode* temp2 = temp->next;
-            while(temp2!=NULL)
-            {
-                if(temp2->val>a)
-                {
-                    output.push_back(temp2->val);
-                    break;
-                }
-                temp2 = temp2->next;
+          vector<int> res;
+        stack<int> s;
+        for(auto node=head; node!=NULL; node=node->next) {
+            while(s.size() && res[s.top()] < node->val) {
+                res[s.top()] = node->val;
+                s.pop();
             }
-            if(temp2==NULL)
-                output.push_back(0);
-            temp = temp->next;
+            s.push(res.size());
+            res.push_back(node->val);
         }
-        return output;
+        while(!s.empty()) {res[s.top()] = 0; s.pop(); }
+        return res;
         
     }
 };

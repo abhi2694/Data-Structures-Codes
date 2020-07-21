@@ -26,7 +26,7 @@ node *reverse_linked_list(node *head)
  
 bool check_palindrome(node* head)
  {
-  node*j,*i=head,*temp=head; 
+  node*i=head,*temp=head; 
   
   while(temp!=NULL&&temp->next!=NULL)
    { 
@@ -34,7 +34,7 @@ bool check_palindrome(node* head)
    temp=temp->next->next;
    }
    
-    j=i;
+    
 	 node*smallhead=reverse_linked_list(i);
 	  temp=head;
 	   while(temp!=NULL&&smallhead!=NULL) 
